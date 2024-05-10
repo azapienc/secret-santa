@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Landing } from './components/Landing';
 import { Dashboard } from './components/Dashboard';
 import { ResetDatabase } from './components/ResetDatabase';
-import { Results } from "./components/Results";
+import { ResetState } from "./components/ResetState";
 
 function App() {
   return (
@@ -11,8 +11,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Landing/>} />
       <Route path="/secret" element={<Dashboard/>} />
-      <Route path="/results" element={<Results/>} />
       <Route path="/resetDatabase" element={<ResetDatabase/>} />
+      <Route path="/reset" element={<ResetState/>} />
     </Routes>
     </>
   );

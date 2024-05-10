@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.full-page {
+    width: 100vw;
+    height: 100vh;
+}
+
+.highlight-text {
+  color: #456445 !important
+}
+
+.family-card {
+  background-color: #cad9ca !important;
+}
+
+.sort-button {
+  background-color: #37889b !important;
+  max-width: 50vw !important;
+}
+
+.back-button {
+  background-color: #37889b !important;
+}
+

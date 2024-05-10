@@ -20,7 +20,13 @@ const santaReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         result: action.payload,
+        error: null
       }
+    case 'ASSIGNMENT_ERROR':
+      return {
+        ...state,
+        error: action.error
+      };
     case 'RESET_FOUND_RECORDS':
       return {
         ...initialState,

@@ -31,9 +31,10 @@ export const Landing = () => {
   };
 
   return (
-    <div className='container-sm'>
-      <h1>Secret santa</h1>
-      <div className="form-group align-middle mt-5 w-50">
+    <div className='container-sm full-page'>
+      <h1 className="mt-5">The most restrictive Secret Santa</h1>
+      <h3 className="highlight-text">for Bettercloud</h3>
+      <div className="col form-group mt-5 w-50">
         <form onSubmit={handleSubmit}>
           <div className="input-group mb-3">
             <input
@@ -42,14 +43,18 @@ export const Landing = () => {
               name="santaId"
               value={FormData.santaId}
               onChange={handleInputChange}
-              placeholder='your secret santa id here'
+              placeholder='do you know the id?'
             />
             <div className="input-group-prepend">
               <button className="btn btn-outline-secondary" type="submit">have a look</button>
             </div>
           </div>
         </form>
-        {data && !Object.keys(data).length && <p>sorry this does not exists, ho ho ho...</p>}
+        {data && !Object.keys(data).length && 
+          <div className="alert alert-info" role="alert">
+            sorry this does not exists, ho ho ho...
+          </div>
+        }
       </div>
     </div>
   )

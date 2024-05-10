@@ -53,39 +53,61 @@ export const search = (santaId) => async (dispatch) => {
   return dispatch({type: "SEARCH_BY_SANTA_ID", santaId, payload});
 }; 
 
+class FamilyMember {
+    constructor(name, familyId) {
+        this.name = name;
+        this.familyId = familyId;
+        this.secretSanta = null;
+    }
+}
+
+function assignSecretSanta(members) {
+  let availableCandidates = new Set(members);
+  for (const member of members) {
+    let candidates = Array.from(availableCandidates).filter(candidate =>
+      candidate !== member && candidate.familyId !== member.familyId);
+    if (candidates.length === 0) {
+      throw new Error("too much for me, please check the family");
+    }
+    let secretSanta = candidates[Math.floor(Math.random() * candidates.length)];
+    member.secretSanta = secretSanta;
+    availableCandidates.delete(secretSanta);
+  }
+}
+
 export const sort = (santaId) => async (dispatch) => {
-  console.log("---sorting", santaId);
-  // queries
   const registryQuery = query(
     collection(db, "registry"),
     where("santaId", "==", santaId)
   );
   const registrySnapshot = await getDocs(registryQuery);
-  const historyQuery = query(
-    collection(db, "history"), 
-    where("santaId", "==", santaId),
-    limit(3)
-  );
-  const historySnapshot = await getDocs(registryQuery);
-
-  // data mapping
   const registry = {};
   registrySnapshot.forEach((doc) => {
-    const {families} = doc.data();
+    const { families } = doc.data();
     families.forEach(family => {
-      if(family.familyName in registry) {
-        registry[family.familyName].concat(family.members);
-        return;
-      }
-        registry[family.familyName] = family.members;
+      family.members.forEach(member => {
+        if (member in registry) { return; }
+        registry[member] = family.familyName;
+      })
     })
   });
-  const payload = secretSanta(registry);
-  console.log("registry:", JSON.stringify(registry, null, 2));
-  console.log("result:", JSON.stringify(payload, null, 2));
-
-  return dispatch({type: "SET_RESULTS", payload});
-}; 
+  let members = Object.keys(registry).map(name => {
+    return new FamilyMember(name, registry[name]);
+  })
+  try {
+    assignSecretSanta(members);
+    let payload = members.reduce((acc, member) => {
+      acc[member.name] = member.secretSanta.name;
+      return acc;
+    }, {});
+    console.log("payload:", payload);
+    return dispatch({ type: "SET_RESULTS", payload });
+  } catch (e) {
+    console.error(e.message);
+    const error = e.message;
+    return dispatch({ type: "ASSIGNMENT_ERROR", error });
+  }
+};
 
 export const reset = () => async (dispatch) => {
   return dispatch({type: "RESET_FOUND_RECORDS"});

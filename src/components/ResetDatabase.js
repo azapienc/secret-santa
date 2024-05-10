@@ -31,30 +31,6 @@ export const ResetDatabase = () => {
                 ]
             }
         );
-        // await addDoc(collection(db, "history"),
-        //     {
-        //         santaId: "friends",
-        //         "results": {
-        //             "Monica": "Chandler",
-        //             "Rachel": "Ross",
-        //             "Chandler": "Joey",
-        //             "Ross": "Monica",
-        //             "Joey": "Rachel",
-        //         }
-        //     }
-        // );
-        // await addDoc(collection(db, "history"),
-        //     {
-        //         santaId: "friends",
-        //         "results": {
-        //             "Monica": "Ross",
-        //             "Rachel": "Joey",
-        //             "Chandler": "Monica",
-        //             "Ross": "Rachel",
-        //             "Joey": "Chandler",
-        //         }
-        //     }
-        // );
         alert("Document written to Database");
     };
 
