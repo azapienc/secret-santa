@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# Hi, this is my secret santa for Bettercloud
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## how to check it
+I deployed this app to https://secret-santa-weld.vercel.app and it's already connected with the firestore database, please let me know if there is any issue when testing.
 
-## Available Scripts
+To run it locally please 
+-clone the repository
+-install the dependencies npm install
+-set the .env file with the database variables, I'll share them in the email in case you need them
+-npm run start
+-Try to put any id, you should see a warning indicating that secret santa does not exists.
+-Try with "friends", that is the only secret santa stored in the database.
+-Once in, please note that the members are divided by Apartment (it can be sub sets of a family though)
+-Click on Sort it! and see the results
 
-In the project directory, you can run:
+## Intented design
+-This React app was designed to be connected with a firestore database
+-It is using react-router for managin the routes
+-Uses redux to manage the state of the application
+-Also uses additional dependencies like redux-persist so you can reload the page and the state will remain
+-My initial intention was to be able to register new families and members, unfortunatelly I ran out of time to do so (might see some remains of that code), however, it is fetching the existing records from there.
+-Unfortunatelly I did not have much time to do unit testint either.
+-Please let me know if you need me to populate the database with more records.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Thanks for you time!
