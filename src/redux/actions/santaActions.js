@@ -1,57 +1,6 @@
-import { addDoc, collection, getDocs, getFirestore, limit, query, where } from "firebase/firestore";
-import { useSelector } from "react-redux";
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
 
 const db = getFirestore();
-
-const secretSanta = (families) => {
-    const assignments = {};
-
-  // Flatten the array of families into a single array of participants
-  const participants = Object.values(families).flatMap(members => members);
-  console.log("participants:", participants);
-
-  for (const familyName in families) {
-    const familyMembers = families[familyName];
-    const availableRecipients = [...participants];
-
-    for (const giver of familyMembers) {
-      // Filter out recipients from the same family
-      const filteredRecipients = availableRecipients.filter(recipient => !families[giver] || !families[giver].includes(recipient));
-
-      if (filteredRecipients.length === 0) {
-        throw new Error(`Unable to assign a recipient for ${giver}. Check family members.`);
-      }
-
-      const recipientIndex = Math.floor(Math.random() * filteredRecipients.length);
-      const recipient = filteredRecipients[recipientIndex];
-
-      assignments[giver] = recipient;
-      availableRecipients.splice(availableRecipients.indexOf(recipient), 1);
-    }
-  }
-
-  return assignments;
-};
-
-export const search = (santaId) => async (dispatch) => {
-  const registryQuery = query(
-    collection(db, "registry"),
-    where("santaId", "==", santaId)
-  );
-  const querySnapshot = await getDocs(registryQuery);
-  const payload = {};
-  querySnapshot.forEach((doc) => {
-    const {families} = doc.data();
-    families.forEach(family => {
-      if(family.familyName in payload) {
-        payload[family.familyName].push(family.members);
-        return;
-      }
-        payload[family.familyName] = [family.members];
-    })
-  });
-  return dispatch({type: "SEARCH_BY_SANTA_ID", santaId, payload});
-}; 
 
 class FamilyMember {
     constructor(name, familyId) {
@@ -74,6 +23,26 @@ function assignSecretSanta(members) {
     availableCandidates.delete(secretSanta);
   }
 }
+
+export const search = (santaId) => async (dispatch) => {
+  const registryQuery = query(
+    collection(db, "registry"),
+    where("santaId", "==", santaId)
+  );
+  const querySnapshot = await getDocs(registryQuery);
+  const payload = {};
+  querySnapshot.forEach((doc) => {
+    const {families} = doc.data();
+    families.forEach(family => {
+      if(family.familyName in payload) {
+        payload[family.familyName].push(family.members);
+        return;
+      }
+        payload[family.familyName] = [family.members];
+    })
+  });
+  return dispatch({type: "SEARCH_BY_SANTA_ID", santaId, payload});
+}; 
 
 export const sort = (santaId) => async (dispatch) => {
   const registryQuery = query(
@@ -100,7 +69,6 @@ export const sort = (santaId) => async (dispatch) => {
       acc[member.name] = member.secretSanta.name;
       return acc;
     }, {});
-    console.log("payload:", payload);
     return dispatch({ type: "SET_RESULTS", payload });
   } catch (e) {
     console.error(e.message);

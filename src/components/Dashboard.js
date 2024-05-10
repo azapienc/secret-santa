@@ -58,7 +58,7 @@ export const Dashboard = () => {
                     }
                     {!!error &&
                         <div className="alert alert-danger" role="alert">
-                            too much for me, please retry or check the family structure
+                            too much computing for me, please retry or check the family structure
                         </div>
                     }
                 </div>
